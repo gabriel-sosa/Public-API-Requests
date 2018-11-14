@@ -206,8 +206,10 @@ header h1 {
     transition: .4s ease-out;
     outline: none;
   }
-  
-
+/*****my code*****/  
+.modal-container {
+    display: none;
+}
 /* ===================================== 
    Media Queries
 ======================================== */
