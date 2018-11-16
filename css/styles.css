@@ -16,7 +16,7 @@ html, body {
 body {
     font-family: "Nunito", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+    background: #040F0F;/*changed*/
 }
 
 header {
@@ -30,13 +30,13 @@ header {
 
 header h1 {
     font-size: 1.25em;
-    color: rgba(50, 50, 50, 0.9);
+    color: #FCFFFC;/*chaged*/
     margin-top: 35px;
 }
 
 .search-input {
     padding: 0.4rem 1rem;
-    border: 1px solid rgba(200, 200, 200, 0.9);
+    border: 1px solid #248232;/*changed*/
     border-radius: 0.25rem 0 0 0.25rem ;
     max-width: 20rem;
     transition: .4s ease-out;
@@ -44,7 +44,7 @@ header h1 {
 }
 
 .search-input:active, .search-input:hover, .search-input:focus {
-    border: 1px solid rgba(50, 50, 50, 0.9);
+    border: 1px solid #2BA84A;/*changed*/
 }
 
 .search-submit {
@@ -52,7 +52,7 @@ header h1 {
     height: 33px;
     background: rgba(245, 245, 245, 0.9);
     border-radius: 0 0.25rem 0.25rem 0;
-    border: 1px solid rgba(200, 200, 200, 0.9);
+    border: 1px solid #248232;/*changed*/
     transition: .4s ease-out;
     outline: none;
 }
@@ -87,9 +87,9 @@ header h1 {
     max-width: 360px;
     margin: 10px 10px 20px;
     padding: 10px;
-    background: rgba(245, 245, 245, 0.9);
+    background: #AFD1B4;/*changed*/
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 1px solid #2D3A3A;/*changed*/
     transition: .4s ease-out;
     overflow: hidden;
 }
@@ -131,6 +131,7 @@ header h1 {
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.7);
+    display: none;/*created by me*/
 }
 
 .modal {
@@ -140,9 +141,9 @@ header h1 {
     min-height: 415px;
     margin: 10px auto auto;
     padding-bottom: 15px;
-    background: rgba(255, 255, 255, 1);
+    background: #AFD1B4;/*changed*/
     border-radius: 0.25em;
-    border: 1px solid rgba(100, 100, 100, 0.3);
+    border: 1px solid #2D3A3A;/*chagend*/
     transition: .4s ease-out;
 }
 
@@ -188,9 +189,9 @@ header h1 {
     max-width: 420px;
     padding: 10px 15px 15px;;
     margin: 10px auto auto;
-    background: rgba(255, 255, 255, 1);
+    background: #AFD1B4;/*changed*/
     border-radius: 0.25em;
-    border: 1px solid rgba(100, 100, 100, 0.3);
+    border: 1px solid #2D3A3A;/*changed*/
 }
 
 
@@ -206,10 +207,7 @@ header h1 {
     transition: .4s ease-out;
     outline: none;
   }
-/*****my code*****/  
-.modal-container {
-    display: none;
-}
+
 /* ===================================== 
    Media Queries
 ======================================== */

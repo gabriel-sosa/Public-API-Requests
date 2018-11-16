@@ -1,8 +1,7 @@
 const pageBuilder = {
-    
-    currentUser: 0,
-    users: [],
-    createElements: function () {
+    currentUserIndex: 0,//the user that the modal will display
+    users: [],//the users array, is filled in the ajax function
+    createElements: function () {//creates every item that needs js to work
         //create DOM elemnts
         this.modal = document.createElement(`div`),
         this.modal.buttons = document.createElement(`div`);
@@ -31,44 +30,68 @@ const pageBuilder = {
         form.innerHTML = 
 `<input type="search" id="search-input" class="search-input" placeholder="Search...">
 <input type="submit" value="&#x1F50D;" id="serach-submit" class="search-submit">`;
-        //give the form method a method and action
+        //give the form element a method and action
         form.action = `#`;
         form.method = `get`;
         //event listeners
-        this.modal.addEventListener(`click`, e => {
+        this.modal.addEventListener(`click`, e => {//EL to close the modal
             if(e.eventPhase === 2 || e.target.tagName === `STRONG`)
                 this.modal.style.display = `none`;
         });
-        this.modal.buttons.addEventListener(`click`, e => {
-            if (e.target.id === `modal-next` && this.currentUser < this.users.length - 1){
-                this.currentUser++;
-                this.displayUser();
-            } else if (e.target.id === `modal-prev` && this.currentUser > 0) {
-                this.currentUser--;
-                this.displayUser();
+        this.modal.buttons.addEventListener(`click`, e => {//EL to toggle back and forth between the employees
+            const show = (move, index) => {//uses a recursive function to find the next or previous displayed user
+                if (move === `prev` && index >= 0){
+                    if (this.users[index].displayed)
+                        return index;
+                    else
+                        return show(move, index - 1);
+                } else if (move === `next` && index < this.users.length){
+                    if (this.users[index].displayed)
+                        return index;
+                    else
+                        return show(move, index + 1);
+                }
+            };
+            if (e.target.id === `modal-prev`){
+                const previous = show(`prev`, this.currentUserIndex - 1);
+                if (previous != undefined){
+                    this.currentUserIndex = previous;
+                    this.displayUser();
+                }
+            } else if (e.target.id === `modal-next`){
+                const next = show(`next`, this.currentUserIndex + 1);
+                if (next != undefined){
+                    this.currentUserIndex = next;
+                    this.displayUser();
+                }
             }
         });
-        form.querySelector(`#search-input`).addEventListener(`search`, e => {
-            e.preventDefault();
+        const search = () => {
             const input = new RegExp(form.children[0].value, `i`);
-            document.querySelectorAll(`.card #name`).forEach(user => {
+            document.querySelectorAll(`.card #name`).forEach((user, index) => {
                 const userParent = user.parentElement.parentElement;
                 if (input.test(user.textContent)){
                     userParent.style.display = `flex`;
+                    this.users[index].displayed = true;
                 } else {
                     userParent.style.display = `none`;
+                    this.users[index].displayed = false;
                 }
             });
-        });
+        };
+        form.children[0].addEventListener(`search`, search);
+        form.children[1].addEventListener(`click`, search);
+        form.addEventListener(`submit`, e => e.preventDefault());
         //append the elements to the DOM
         document.querySelector(`body`).appendChild(this.modal);
         this.modal.appendChild(this.modal.buttons);
         document.querySelector(`.search-container`).appendChild(form);
     },
-    ajax: function () {
-        const gallery =  document.querySelector(`#gallery`);
-        const createUsers = () => {
+    ajax: function () {//takes care of the ajax call and create the user cars
+        const createUsers = () => {//creates the ueser card elements
             this.users.forEach((user, index) =>{
+                //creates, gives a class, fills with the current user info, gives an event listener and appends each user card
+                user.displayed = true;
                 const card = document.createElement(`div`);
                 card.className = `card`;
                 card.innerHTML = 
@@ -80,23 +103,23 @@ const pageBuilder = {
     <p class="card-text">${user.email}</p>
     <p class="card-text cap">${user.location.city}, ${user.location.state}</p>
 </div>`;
-                card.addEventListener(`click`, e => {
-                    this.currentUser = index;
+                card.addEventListener(`click`, () => {//when clicked displays the selected user info
+                    this.currentUserIndex = index;
                     this.displayUser();
                 });
-                gallery.appendChild(card);
+                document.querySelector(`#gallery`).appendChild(card);
             });
         };
-        fetch(`https://randomuser.me/api/?results=12&nat=us&noinfo`)
+        fetch(`https://randomuser.me/api/?results=12&nat=us&noinfo`)//the ajax call
             .then(data => data.json())
             .then(users => {
                 this.users = users.results;
                 createUsers();
             })
-            .catch(() => console.log(`it seems there was an error`));
+            .catch(() => alert(`it seems there was an error`));
     },
-    displayUser: function (){
-        const user = this.users[this.currentUser];
+    displayUser: function (){//uses the currentUserIndex property as  the index to display the current user in the users array
+        const user = this.users[this.currentUserIndex];
         this.modal.style.display = `block`;
         this.modal.querySelector(`.modal-img`).src = user.picture.large;
         this.modal.querySelector(`.modal-name`).textContent = `${user.name.first} ${user.name.last}`;
