@@ -1,4 +1,4 @@
-# Public API Request
+# [Public API Request](https://gsosa2000.github.io/Public-API-Requests/)
 ## **Grade:** :heavy_check_mark: Exceeds Expectations
 ### **Premise** 
 > Communicating with APIs allows you to work with microservices and with vast databases to build useful tools and relevant information quickly and easily. You can build utilities, games, infographics, and more. You can also integrate, display, and analyze social media and large data sets without having to create and curate them yourself.
@@ -41,5 +41,3 @@
    - > Awesome ! You have made this project your own by changing the CSS and the project perfectly matches the mockups.
 ### Overall Comments
 > You have done an awesome job in this project ! I see you have used vanilla JavaScript with best practices. You have included code comments and the script is clean and well-organized. Excellent work here !
-
-> You will be building your own portfolio on your next project with another JavaScript environment NodeJS. It will be a fun project with a lot of learning opportunities. Go for the exceeds again next time and best of luck :) .
